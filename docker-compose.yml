@@ -1,0 +1,18 @@
+services:
+  server:
+    image: php:alpine
+    working_dir: /var/www/html
+    volumes:
+      - ./server:/var/www/html
+    ports:
+      - "127.0.0.1:8080:8080"
+    command: [ "php", "-S", "0.0.0.0:8080" ]
+
+  client:
+    build: ./client
+    volumes:
+      - ./client:/home/root
+    working_dir: /home/root
+    ports:
+      - "127.0.0.1:8081:80"
+      - "127.0.0.1:443:443"

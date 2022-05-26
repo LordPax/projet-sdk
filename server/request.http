@@ -1,0 +1,25 @@
+POST http://localhost:8080/register
+Content-Type: application/x-www-form-urlencoded
+
+name=MonApp&url=http://localhost:8081&redirect_success=http://localhost:8081/oauth_success
+
+###
+GET http://localhost:8080/auth?response_type=code&client_id=67dc2be521bec2ff862d3ab057de216b&redirect_uri=http://localhost:8081/oauth_success&scope=read&state=xyz
+
+###
+GET http://localhost:8080/auth-success?scope=read&client_id=67dc2be521bec2ff862d3ab057de216b&state=xyz
+
+###
+GET http://localhost:8080/token?grant_type=authorization_code&code=5d842005b4eb4e85c003a7c00c5a7697&redirect_uri=http://localhost:8081/oauth_success&client_id=67dc2be521bec2ff862d3ab057de216b&client_secret=04054cf433eeb3976252c81b6d657fda
+
+###
+GET http://localhost:8080/token?grant_type=password&username=johndoe4&password=password&redirect_uri=http://localhost:8081/oauth_success&client_id=67dc2be521bec2ff862d3ab057de216b&client_secret=04054cf433eeb3976252c81b6d657fda
+###
+GET http://localhost:8080/token?grant_type=client_credentials&redirect_uri=http://localhost:8081/oauth_success&client_id=67dc2be521bec2ff862d3ab057de216b&client_secret=04054cf433eeb3976252c81b6d657fda
+
+###
+GET http://localhost:8080/me
+Authorization: Bearer 1389a3cbbb5d618841e270821a5f65b1
+###
+GET http://localhost:8080/stats
+Authorization: Bearer f6e663e3c3363e4baa4444a822ea0f5d
