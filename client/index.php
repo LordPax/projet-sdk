@@ -1,9 +1,9 @@
 <?php
 
 define("CLIENT_ID", '67dc2be521bec2ff862d3ab057de216b');
-define("FB_CLIENT_ID", '1311135729390173');
+define("FB_CLIENT_ID", '449810320480230');
 define("CLIENT_SECRET", '04054cf433eeb3976252c81b6d657fda');
-define("FB_CLIENT_SECRET", 'fc5e25661fe961ab85d130779357541e');
+define("FB_CLIENT_SECRET", 'feae11b6be0b1a693152303cdedadffa');
 
 // Create a login page with a link to oauth
 function login()
