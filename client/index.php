@@ -103,9 +103,7 @@ function fbcallback()
 }
 function ghcallback()
 {
-    echo 'je suis un test <br>';
     $token = getTokenGh("https://github.com/login/oauth/access_token", GH_CLIENT_ID, GH_CLIENT_SECRET);
-    echo "token : $token <br>";
     $user = getGhUser($token);
     var_dump($user);
 }
@@ -127,17 +125,11 @@ function getGhUser($token)
 {
     $context = stream_context_create([
         "http"=>[
-            "header"=>"Authorization: Bearer {$token}"
+            "header"=>"Authorization: token {$token}\r\nUser-Agent: projet SDK"
         ]
     ]);
-    $queryParams = http_build_query([
-        "access_token"=> $token,
-    ]);
-    /* $response = file_get_contents("https://api.github.com/user?{$queryParams}", false, $context); */
-    $response = file_get_contents("https://api.github.com/user/repos", false, $context);
-    echo "reponse user : $response <br>";
+    $response = file_get_contents("https://api.github.com/user", false, $context);
     if (!$response) {
-        echo 'user reject <br>';
         echo $http_response_header;
         return;
     }
@@ -168,7 +160,6 @@ function getToken($baseUrl, $clientId, $clientSecret)
 function getTokenGh($baseUrl, $clientId, $clientSecret)
 {
     ["code"=> $code, "state" => $state] = $_GET;
-    echo "code : $code, state : $state <br>";
     $queryParams = http_build_query([
         "client_id"=> $clientId,
         "client_secret"=> $clientSecret,
@@ -183,13 +174,11 @@ function getTokenGh($baseUrl, $clientId, $clientSecret)
     ]);
 
     $url = $baseUrl . "?{$queryParams}";
-    echo "url : $url <br>";
     $response = file_get_contents($url, false, $context);
     if (!$response) {
         echo $http_response_header;
         return;
     }
-    echo "reponse token : $response <br>";
     ["access_token" => $token] = json_decode($response, true);
 
     return $token;
