@@ -47,7 +47,7 @@ function login()
         "response_type" => "code"
     ]);
 
-    echo "<a href=\"https://accounts.google.com/o/oauth2/auth?{$googleQueryParams}\">Login with Google</a>";
+    echo "<a href=\"https://accounts.google.com/o/oauth2/auth?{$googleQueryParams}\">Login with Google</a><br>";
     echo "<a href=\"http://localhost:8080/auth?{$queryParams}\">Login with Oauth-Server</a><br>";
     echo "<a href=\"https://www.facebook.com/v13.0/dialog/oauth?{$fbQueryParams}\">Login with Facebook</a><br>";
     echo "<a href=\"https://github.com/login/oauth/authorize?{$ghQueryParams}\">Login with Github</a>";
@@ -157,7 +157,7 @@ function getGoogleUser($token)
 {
     $context = stream_context_create([
         "http"=>[
-            "header"=>"Authorization: token {$token}"
+            "header"=>"Authorization: Bearer {$token}"
         ]
     ]);
     $response = file_get_contents("https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses", false, $context);
